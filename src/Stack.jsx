@@ -30,6 +30,17 @@ class Stack extends PureComponent<Props, State> {
     constructor(props) {
         super(props);
         // 第一个页面先push进去
+        // console.log('props.location', props.location);
+        const homePageLocation = {
+            hash: '',
+            pathname: '/',
+            search: '',
+            state: undefined
+        };
+        // this.state.stack.push(this.getPage(props.location));
+        if (this.props.location.pathname !== '/') {
+            this.state.stack.push(this.getPage(homePageLocation)); // 强制将home压入
+        }
         this.state.stack.push(this.getPage(props.location));
     }
 
@@ -62,14 +73,24 @@ class Stack extends PureComponent<Props, State> {
 
         // 后退的时候，直接pop最上面的page
         if (nextProps.history.action === 'POP') {
-            this.state.stack.pop();
+            this.pop();
         } else {
             if (nextProps.history.action === 'REPLACE') {
-                this.state.stack.pop();
+                this.pop();
             }
             // action === 'PUSH' 跳转新页面的时候，直接push
             this.state.stack.push(this.getPage(nextProps.location));
         }
+    }
+
+    pop() {
+        // console.log('this.state.stack.length:', this.state.stack.length);
+        if (this.state.stack.length === 1) {
+            return; // 保留Home永不销毁
+        } else if (this.state.stack.length === 2) {
+            window.history.replaceState(null, null, '/'); // 子页面刷新改写返回页面url
+        }
+        this.state.stack.pop();
     }
 
     /* Enter */
