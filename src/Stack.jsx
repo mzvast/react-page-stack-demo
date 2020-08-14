@@ -1,8 +1,8 @@
 // @flow
 /**
  * @file [Stack]
- * @author [wangyang65]
- * @email [wangyang65@baidu.com]
+ * @author [mzvast]
+ * @email [mzvast@gmail.com]
  * @create date 2018-07-11 11:29:42
  */
 /* eslint-disable babel/new-cap,operator-linebreak,fecs-export-on-declare */
